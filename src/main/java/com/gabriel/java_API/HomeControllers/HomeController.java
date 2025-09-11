@@ -1,20 +1,19 @@
 package com.gabriel.java_API.HomeControllers;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import com.gabriel.java_API.dto.UserDto;
 
-//import java.util.Map;
 
 
 
 @RestController
+@RequestMapping("/api")
 public class HomeController  {
 	
-    @PostMapping("/api/user")
-    public String processUser() {
-    	System.out.println("foi"); 
-        return ""; // echoes back
+    @PostMapping("/user")
+    public UserDto  processUser(@RequestBody UserDto user) {
+    	System.out.println(user.getUserId() + " - " + user.getPassword());
+        return user; // echoes back
 	}
 }

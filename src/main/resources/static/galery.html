@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en" ng-app="mediaGalleryApp">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Angular Media Gallery (Simple)</title>
+  <!-- AngularJS CDN (1.x) - single-file friendly -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial; margin:0; padding:0;}
+    .navbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#222;color:#fff}
+    .brand{font-weight:700}
+    .nav-right{display:flex;gap:12px;align-items:center}
+    .search input{padding:6px 10px;border-radius:6px;border:1px solid #ccc}
+    .profile{position:relative}
+    .profile button{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:6px 10px;border-radius:6px}
+    .dropdown{position:absolute;right:0;top:40px;background:#fff;color:#111;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.16);min-width:200px;padding:10px;display:none}
+    .dropdown.show{display:block}
+
+    .container{padding:18px}
+    .user-card{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+    .avatar{width:56px;height:56px;border-radius:50%;background:#ddd;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
+
+    .controls{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}
+    .controls input, .controls button{padding:8px 10px;border-radius:6px;border:1px solid #ccc}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+    .card{background:#f9f9f9;padding:8px;border-radius:8px;overflow:hidden;border:1px solid #eee}
+    .card img, .card video{width:100%;height:140px;object-fit:cover;border-radius:6px}
+    .meta{margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+    .tag{font-size:12px;color:#666}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center}
+    .modal-content{background:#fff;padding:14px;border-radius:8px;max-width:900px;width:90%;max-height:90%;overflow:auto}
+    .modal-content video, .modal-content img{max-width:100%;max-height:70vh}
+
+    @media (max-width:480px){ .navbar{padding:10px} .search input{width:120px} }
+  </style>
+</head>
+<body ng-controller="GalleryCtrl as vm">
+  <header class="navbar">
+    <div class="brand">MyMedia Gallery</div>
+    <div class="nav-right">
+      <div class="search">
+        <input type="search" placeholder="Search media or tags..." ng-model="vm.query" />
+      </div>
+
+      <div class="profile">
+        <button ng-click="vm.toggleProfile()">{{vm.user.name}} ▾</button>
+        <div class="dropdown" ng-class="{show: vm.showProfile}">
+          <div style="padding:8px 0">
+            <strong>{{vm.user.name}}</strong><br>
+            <small>{{vm.user.email}}</small>
+          </div>
+          <hr/>
+          <button ng-click="vm.editProfile()">Edit profile</button>
+          <button ng-click="vm.logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="user-card">
+      <div class="avatar">{{vm.user.name.charAt(0)}}</div>
+      <div>
+        <div><strong>{{vm.user.name}}</strong></div>
+        <div style="font-size:13px;color:#666">{{vm.user.bio || 'No bio yet'}}</div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <!-- Add by URL -->
+      <input type="text" ng-model="vm.newMedia.url" placeholder="Paste image/video URL (http...)" style="min-width:280px" />
+      <input type="text" ng-model="vm.newMedia.title" placeholder="Title (optional)" />
+      <input type="text" ng-model="vm.newMedia.tags" placeholder="Comma-separated tags" />
+      <button ng-click="vm.addByUrl()">Add URL</button>
+
+      <!-- Upload local file (image/video) -->
+      <input type="file" id="fileInput" accept="image/*,video/*" onchange="angular.element(this).scope().vm.handleFile(this.files)" />
+
+      <div style="margin-left:auto">Total: <strong>{{vm.media.length}}</strong></div>
+    </section>
+
+    <section style="margin-bottom:12px">
+      <label>Filter type:</label>
+      <select ng-model="vm.filterType">
+        <option value="all">All</option>
+        <option value="image">Images</option>
+        <option value="video">Videos</option>
+      </select>
+    </section>
+
+    <section>
+      <div class="grid">
+        <div class="card" ng-repeat="m in vm.media | filter:vm.searchFilter | limitTo:200">
+          <div ng-switch="m.type">
+            <img ng-switch-when="image" ng-src="{{m.src}}" alt="{{m.title || 'image'}}" ng-click="vm.openModal(m)" />
+            <video ng-switch-when="video" ng-src="{{m.src}}" controls ng-click="vm.openModal(m)"></video>
+            <div ng-switch-default style="height:140px;display:flex;align-items:center;justify-content:center;color:#999">Preview not available</div>
+          </div>
+          <div class="meta">
+            <div>
+              <div style="font-weight:600">{{m.title || (m.type | uppercase)}}</div>
+              <div class="tag">{{m.tags.join(', ')}}</div>
+            </div>
+            <div>
+              <button ng-click="vm.toggleFavorite(m)">{{m.favorite ? '★' : '☆'}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal-backdrop" ng-if="vm.modalOpen" ng-click="vm.closeModal()">
+      <div class="modal-content" ng-click="$event.stopPropagation()">
+        <h3>{{vm.modalItem.title || (vm.modalItem.type | uppercase)}}</h3>
+        <div style="margin:10px 0">
+          <img ng-if="modalIsImage()" ng-src="{{vm.modalItem.src}}" alt="preview" />
+          <video ng-if="modalIsVideo()" ng-src="{{vm.modalItem.src}}" controls autoplay></video>
+        </div>
+        <div style="font-size:13px;color:#444">Tags: {{vm.modalItem.tags.join(', ')}}</div>
+        <div style="margin-top:10px;text-align:right"><button ng-click="vm.closeModal()">Close</button></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    (function(){
+      angular.module('mediaGalleryApp', [])
+        .controller('GalleryCtrl', ['$scope', '$sce', function($scope, $sce){
+          var vm = this;
+
+          // simple user object
+          vm.user = { name: 'Gabriel Cardoso', email: 'gabriel@example.com', bio: 'Loves photos and short clips' };
+
+          vm.showProfile = false;
+          vm.toggleProfile = function(){ vm.showProfile = !vm.showProfile; };
+          vm.editProfile = function(){ alert('Open a profile editor (not implemented in this demo)'); };
+          vm.logout = function(){ alert('Logout (demo)'); };
+
+          // media list, small demo items (images/videos by URL)
+          vm.media = [
+            { id:1, type:'image', src:'https://picsum.photos/seed/1/800/600', title:'Random 1', tags:['random','demo'], favorite:false },
+            { id:2, type:'image', src:'https://picsum.photos/seed/2/800/600', title:'Random 2', tags:['photo'], favorite:false },
+            { id:3, type:'video', src:'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4', title:'Sample Video', tags:['sample','video'], favorite:false }
+          ];
+
+          vm.newMedia = { url:'', title:'', tags:'' };
+
+          // utility: guess type by extension
+          function guessType(url){
+            if(!url) return 'unknown';
+            var u = url.split('?')[0].toLowerCase();
+            if(u.match(/\.(jpg|jpeg|png|gif|webp|bmp)$/)) return 'image';
+            if(u.match(/\.(mp4|webm|ogg|mov|mkv)$/)) return 'video';
+            // fallback: treat images if it contains "image"
+            if(u.indexOf('image') !== -1) return 'image';
+            return 'unknown';
+          }
+
+          // Add by URL
+          vm.addByUrl = function(){
+            if(!vm.newMedia.url) return alert('Paste a URL first');
+            var type = guessType(vm.newMedia.url);
+            var tags = vm.newMedia.tags ? vm.newMedia.tags.split(',').map(function(t){return t.trim();}) : [];
+            var item = { id: Date.now(), type: type, src: vm.newMedia.url, title: vm.newMedia.title || '', tags: tags, favorite:false };
+            vm.media.unshift(item);
+            vm.newMedia = { url:'', title:'', tags:'' };
+            $scope.$applyAsync();
+          };
+
+          // handle local file upload (reads as data URL)
+          vm.handleFile = function(files){
+            if(!files || !files.length) return;
+            var f = files[0];
+            var reader = new FileReader();
+            reader.onload = function(e){
+              var src = e.target.result;
+              var type = f.type.indexOf('video') === 0 ? 'video' : (f.type.indexOf('image') === 0 ? 'image' : 'unknown');
+              vm.media.unshift({ id: Date.now(), type: type, src: src, title: f.name, tags:[], favorite:false });
+              $scope.$apply();
+            };
+            reader.readAsDataURL(f);
+            // clear the input so same file can be reselected
+            document.getElementById('fileInput').value = '';
+          };
+
+          // filter for search + type
+          vm.query = '';
+          vm.filterType = 'all';
+          vm.searchFilter = function(item){
+            // type filter
+            if(vm.filterType !== 'all' && item.type !== vm.filterType) return false;
+
+            // text filter (on title, tags)
+            if(!vm.query) return true;
+            var q = vm.query.toLowerCase();
+            if((item.title || '').toLowerCase().indexOf(q) !== -1) return true;
+            if((item.tags || []).join(' ').toLowerCase().indexOf(q) !== -1) return true;
+            return false;
+          };
+
+          vm.toggleFavorite = function(m){ m.favorite = !m.favorite; };
+
+          // modal
+          vm.modalOpen = false; vm.modalItem = null;
+          vm.openModal = function(m){ vm.modalItem = m; vm.modalOpen = true; };
+          vm.closeModal = function(){ vm.modalOpen = false; vm.modalItem = null; };
+          $scope.modalIsImage = function(){ return vm.modalItem && vm.modalItem.type === 'image'; };
+          $scope.modalIsVideo = function(){ return vm.modalItem && vm.modalItem.type === 'video'; };
+
+        }]);
+
+      // small helper so file input onchange can call controller method via scope().vm
+      // The onchange attribute in the file input uses: angular.element(this).scope().vm.handleFile(this.files)
+    })();
+  </script>
+</body>
+</html>

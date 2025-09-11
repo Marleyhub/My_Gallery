@@ -6,37 +6,7 @@
   <title>Angular Media Gallery (Simple)</title>
   <!-- AngularJS CDN (1.x) - single-file friendly -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <style>
-    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial; margin:0; padding:0;}
-    .navbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#222;color:#fff}
-    .brand{font-weight:700}
-    .nav-right{display:flex;gap:12px;align-items:center}
-    .search input{padding:6px 10px;border-radius:6px;border:1px solid #ccc}
-    .profile{position:relative}
-    .profile button{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:6px 10px;border-radius:6px}
-    .dropdown{position:absolute;right:0;top:40px;background:#fff;color:#111;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.16);min-width:200px;padding:10px;display:none}
-    .dropdown.show{display:block}
-
-    .container{padding:18px}
-    .user-card{display:flex;gap:12px;align-items:center;margin-bottom:12px}
-    .avatar{width:56px;height:56px;border-radius:50%;background:#ddd;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
-
-    .controls{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}
-    .controls input, .controls button{padding:8px 10px;border-radius:6px;border:1px solid #ccc}
-
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
-    .card{background:#f9f9f9;padding:8px;border-radius:8px;overflow:hidden;border:1px solid #eee}
-    .card img, .card video{width:100%;height:140px;object-fit:cover;border-radius:6px}
-    .meta{margin-top:8px;display:flex;justify-content:space-between;align-items:center}
-    .tag{font-size:12px;color:#666}
-
-    /* modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center}
-    .modal-content{background:#fff;padding:14px;border-radius:8px;max-width:900px;width:90%;max-height:90%;overflow:auto}
-    .modal-content video, .modal-content img{max-width:100%;max-height:70vh}
-
-    @media (max-width:480px){ .navbar{padding:10px} .search input{width:120px} }
-  </style>
+ <link rel="stylesheet" href="./css/style.css">
 </head>
 <body ng-controller="GalleryCtrl as vm">
   <header class="navbar">

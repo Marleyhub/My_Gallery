@@ -1,8 +1,9 @@
-package com.gabriel.java_API.HomeControllers;
+package com.gabriel.api.HomeControllers;
 
 
 import org.springframework.web.bind.annotation.*;
-import com.gabriel.java_API.dto.UserDto;
+
+import com.gabriel.api.dto.UserDto;
 
 
 

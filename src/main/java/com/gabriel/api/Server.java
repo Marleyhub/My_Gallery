@@ -1,4 +1,4 @@
-package com.gabriel.java_API;
+package com.gabriel.api;
 
 
 import org.springframework.boot.SpringApplication;

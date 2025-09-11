@@ -8,7 +8,7 @@ app.controller('UserController', function($http) {
     // Call Spring Boot API
 	vm.submitForm = function() {
 		console.log("Submitting:", vm.user);
-	        $http.post("./api/user", vm.user)
+	        $http.post("/api/user", vm.user)
 	            .then(function(response) {
 	                alert('User sent successfully!');
 	                 console.log("Success:", response.data);

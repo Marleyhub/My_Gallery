@@ -46,3 +46,52 @@ Thumbs.db
 *.tmp
 *.swp
 *~ 
+
+# Angular build output
+/dist
+/tmp
+/out-tsc
+
+# Dependencies
+/node_modules
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+*.local
+.env
+.env.test
+.env.*.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Angular CLI cache
+/.angular/cache
+
+# Coverage reports
+/coverage
+
+# Misc
+/.sass-cache
+/connect.lock
+/typings
+
+# Optional: if you generate lock files with different package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+

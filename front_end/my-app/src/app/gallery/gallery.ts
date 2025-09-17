@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {MatGridListModule} from '@angular/material/grid-list';
 
+/**
+ * @title Basic grid-list
+ */
 @Component({
-  selector: 'app-gallery',
-  imports: [],
-  templateUrl: './gallery.html',
-  styleUrl: './gallery.scss'
+  selector: 'gallery-grid',
+  styleUrl: 'gallery.scss',
+  templateUrl: 'gallery.html',
+  imports: [MatGridListModule],
 })
-export class Gallery {
-
-}
+export class GalleryGrid {}

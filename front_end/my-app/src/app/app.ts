@@ -3,7 +3,9 @@
 import { Component, signal } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon'; 
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     CommonModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']

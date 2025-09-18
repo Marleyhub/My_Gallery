@@ -7,6 +7,7 @@ import { AppComponent } from './app/app';
 import { ToolBar } from './app/tool-bar/tool-bar';
 import { GalleryGrid } from './app/gallery/gallery';
 import { routes } from './app/app.routes';  // define your routes in app.routes.ts
+import { LoginComponent } from './app/login/login';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -28,3 +29,11 @@ bootstrapApplication(GalleryGrid, {
   ]
 })
 .catch(err => console.error(err));
+
+bootstrapApplication(LoginComponent, {
+  providers: [
+    importProvidersFrom(RouterModule.forRoot(routes))
+  ]
+})
+.catch(err => console.error(err));
+

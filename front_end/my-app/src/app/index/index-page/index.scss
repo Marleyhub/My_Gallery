@@ -1,0 +1,22 @@
+.body {
+  display: flex;
+  justify-content: center; // Centers horizontally
+  align-items: center;    // Centers vertically
+  min-height: 100vh;      // Ensures the body takes full viewport height
+  margin: 0;              // Removes default body margin
+  background-color: #f0f0f0; // Example background
+  font-family: Arial, sans-serif; // Example font
+}
+
+.container {
+  text-align: center; // Centers inline content like text within the container
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 15px;
+}

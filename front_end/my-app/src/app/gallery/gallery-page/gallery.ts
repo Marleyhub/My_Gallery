@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { ToolBar } from '../../tool-bar/tool-bar';
 
 /**
  * @title Basic grid-list
@@ -8,6 +9,6 @@ import {MatGridListModule} from '@angular/material/grid-list';
   selector: 'gallery-page',
   styleUrl: 'gallery.scss',
   templateUrl: 'gallery.html',
-  imports: [MatGridListModule],
+  imports: [MatGridListModule, ToolBar],
 })
 export class GalleryPage {}

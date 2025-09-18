@@ -1,19 +1,14 @@
-// src/app/app.component.ts
-
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import { RouterOutlet } from '@angular/router';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
   templateUrl: './app.html',
+  imports: [RouterOutlet],
   styleUrls: ['./app.scss']
 })
-export class AppComponent {
-  
+export class App {
+  readonly title = 'My Gallery';
 }

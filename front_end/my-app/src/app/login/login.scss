@@ -1,17 +1,15 @@
-// login.component.scss (corrected with proper indentation and braces)
-
-$bg: #f6f8fb;
+$bg: #f9f9f9;
 $card: #ffffff;
-$accent: #3b82f6; // blue-500
+$accent: #3bb5f6; 
 $text: #0f172a;
-$muted: #6b7280;
+$muted: #000000;
 
 .login {
-  max-width: 420px;
+  max-width: 450px;
   margin: 48px auto;
-  padding: 28px;
+  padding: 100px;
   background: $card;
-  border-radius: 12px;
+  border-radius: 20px;
   box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 
@@ -23,7 +21,7 @@ $muted: #6b7280;
   }
 
   .field {
-    margin-bottom: 14px;
+    margin-bottom: 30px;
 
     &__label {
       display: block;
@@ -36,7 +34,7 @@ $muted: #6b7280;
       width: 100%;
       padding: 10px 12px;
       border-radius: 8px;
-      border: 1px solid rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(3, 4, 7, 0.08);
       font-size: 0.95rem;
       outline: none;
       transition: box-shadow 150ms ease, border-color 150ms ease;
@@ -47,7 +45,7 @@ $muted: #6b7280;
       }
 
       &::placeholder {
-        color: lighten($muted, 10%);
+        color: lighten($muted, 40%);
       }
     }
 
@@ -114,6 +112,6 @@ $muted: #6b7280;
 
 // page background helper (optional)
 body {
-  background: linear-gradient(180deg, $bg 0%, #ffffff 100%);
+  background: linear-gradient(180deg, $bg 0%, #cbb0b0 100%);
   padding: 24px;
 }

@@ -1,0 +1,59 @@
+<form class="login-form" (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm" novalidate>
+<h2 class="login__title">Sign in</h2>
+
+
+<div class="field">
+    <label class="field__label" for="email">Email</label>
+        <input
+            id="email"
+            name="email"
+            type="email"
+            class="field__input"
+            required
+            email
+            ngModel
+            #emailModel="ngModel"
+            autocomplete="username"
+            placeholder="you@example.com"
+        />
+        <div class="field__error" *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)">
+        <small *ngIf="emailModel.errors?.['required']">Email is required.</small>
+        <small *ngIf="emailModel.errors?.['email']">Enter a valid email.</small>
+    </div>
+</div>
+
+
+<div class="field">
+    <label class="field__label" for="password">Password</label>
+    <input
+    id="password"
+    name="password"
+    type="password"
+    class="field__input"
+    required
+    minlength="6"
+    ngModel
+    #pwdModel="ngModel"
+    autocomplete="current-password"
+    placeholder="••••••••"
+    />
+    <div class="field__error" *ngIf="pwdModel.invalid && (pwdModel.dirty || pwdModel.touched)">
+        <small *ngIf="pwdModel.errors?.['required']">Password is required.</small>
+        <small *ngIf="pwdModel.errors?.['minlength']">Password must be at least 6 characters.</small>
+    </div>
+</div>
+
+
+<div class="actions">
+    <label class="remember">
+        <input type="checkbox" name="remember" ngModel />
+        <span>Remember me</span>
+    </label>
+
+
+    <button class="btn" type="submit" [disabled]="loginForm.invalid">Sign in</button>
+</div>
+
+
+<p class="login__alt">Don't have an account? <a href="#">Register</a></p>
+</form>

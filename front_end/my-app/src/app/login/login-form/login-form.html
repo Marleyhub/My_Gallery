@@ -17,11 +17,10 @@
             placeholder="you@example.com"
         />
         <div class="field__error" *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)">
-        <small *ngIf="emailModel.errors?.['required']">Email is required.</small>
-        <small *ngIf="emailModel.errors?.['email']">Enter a valid email.</small>
-    </div>
+            <small *ngIf="emailModel.errors?.['required']">Email is required.</small>
+            <small *ngIf="emailModel.errors?.['email']">Enter a valid email.</small>
+        </div>
 </div>
-
 
 <div class="field">
     <label class="field__label" for="password">Password</label>
@@ -49,8 +48,6 @@
         <input type="checkbox" name="remember" ngModel />
         <span>Remember me</span>
     </label>
-
-
     <button class="btn" type="submit" [disabled]="loginForm.invalid">Sign in</button>
 </div>
 

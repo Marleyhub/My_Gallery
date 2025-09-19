@@ -16,6 +16,7 @@ export class LoginFormComponent {
     if (form.valid) {
       console.log('Form submitted!', form.value);
       // 👉 here you can call your auth service
+      
     } else {
       console.log('Form invalid');
     }

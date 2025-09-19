@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -11,12 +12,24 @@ import { CommonModule } from '@angular/common'
   imports: [FormsModule, CommonModule]  
 })
 export class LoginFormComponent {
-  // This method will be called when the form is submitted
+  constructor(protected http: HttpClient) {}
+
   onSubmit(form: NgForm) {
+    console.log(form.value)
     if (form.valid) {
-      console.log('Form submitted!', form.value);
-      // 👉 here you can call your auth service
-      
+      const loginPayload = {
+        userId: form.value.email,
+        password: form.value.password
+      };
+
+      this.http.post('http://localhost:8080/api/login', loginPayload).subscribe({
+        next: (response) => {
+          console.log('Login success', response)
+        },
+        error: (err) => {
+          console.log('Login error', err)
+        }
+      });
     } else {
       console.log('Form invalid');
     }

@@ -18,7 +18,7 @@ export class LoginFormComponent {
     console.log(form.value)
     if (form.valid) {
       const loginPayload = {
-        userId: form.value.email,
+        email: form.value.email,
         password: form.value.password
       };
 

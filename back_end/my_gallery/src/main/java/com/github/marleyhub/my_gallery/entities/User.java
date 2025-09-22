@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_user")
 public class User {
+	public User() {}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

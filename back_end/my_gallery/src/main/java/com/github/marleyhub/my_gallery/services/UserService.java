@@ -18,4 +18,10 @@ public class UserService {
 	public List<User> printAllUsers() {
 		return userRepository.findAll();
 	}
+  
+    public List<User> createUser(User body) {
+    	User result = userRepository.save(body);
+    	return List.of(result);
+    }
+    
 }

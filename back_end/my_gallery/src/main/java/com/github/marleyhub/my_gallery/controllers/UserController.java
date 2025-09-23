@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
+    public List<User> printAllUsers() {
         return userService.printAllUsers();
     }
     

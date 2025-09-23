@@ -20,8 +20,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> getUsers() {
         return userService.printAllUsers();
     }
+    
+    @PostMapping
+    public void createUser(@RequestBody User body) {
+    	List<User> result = userService.createUser(body);
+    	System.out.println(result);
+    }
+    
+    
 }

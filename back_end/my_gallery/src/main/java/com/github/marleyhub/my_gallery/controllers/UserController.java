@@ -1,11 +1,13 @@
 package com.github.marleyhub.my_gallery.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +38,17 @@ public class UserController {
     @DeleteMapping(value = "/{id}")
     public void deleteUser(@PathVariable Long id) {
     	userService.deleteUser(id);
+    }
+    
+    @PutMapping(value = "/{id}/replacement")
+    public void updateUser(@PathVariable Long id, @RequestBody User body) {
+    	Optional<User> updated = userService.updateUser(id, body);
+    	
+    	if(updated.isPresent()) {
+    		System.out.println("User updated: " + updated.get());
+    	} else {
+    		System.out.println("User not found or body null");
+    	}
     }
     
     

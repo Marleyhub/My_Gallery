@@ -39,7 +39,7 @@ public class UserService {
     		return Optional.empty();
     	}
     	
-    	return userRepository.findById(id).map(existingUser -> {
+    	return userRepository.findById(id).map((User existingUser) -> {
     		existingUser.setEmail(body.getEmail());
     		
     		return userRepository.save(existingUser);

@@ -17,11 +17,13 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 	
+	// get all users
 	@Transactional(readOnly = true)
 	public List<User> getUsers() {
 		return userRepository.findAll();
 	}
 	
+	// get one user
 	@Transactional(readOnly = true)
 	public Optional<User> getUser(Long id) {
 		if(id == null) {
@@ -30,17 +32,20 @@ public class UserService {
 		return userRepository.findById(id);
 	}
   
+	// create user
 	@Transactional
     public List<User> createUser(User body) {
     	User result = userRepository.save(body);
     	return List.of(result);
     }
     
+	// delete user
     @Transactional
     public void deleteUser(Long id) {
     	userRepository.deleteById(id);
     }
     
+    // update user
     @Transactional
     public Optional<User> updateUser(Long id, User body) { 
     	if (body == null && id == null) {

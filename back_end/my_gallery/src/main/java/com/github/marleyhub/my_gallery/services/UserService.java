@@ -23,7 +23,7 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	// get one user
+	// get one user by id
 	@Transactional(readOnly = true)
 	public Optional<User> getUser(Long id) {
 		if(id == null) {

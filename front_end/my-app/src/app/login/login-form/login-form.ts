@@ -22,7 +22,7 @@ export class LoginFormComponent {
         password: form.value.password
       };
 
-      this.http.post('http://localhost:8080/api/login', loginPayload).subscribe({
+      this.http.post('http://localhost:8080/auth/login', loginPayload).subscribe({
         next: (response) => {
           console.log('Login success', response)
         },

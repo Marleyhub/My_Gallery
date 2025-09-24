@@ -31,6 +31,15 @@ public class UserService {
 		}
 		return userRepository.findById(id);
 	}
+	
+	// get one user by email
+	@Transactional(readOnly = true)
+	public Optional<User> getOneUser(String email) {
+		if(email == null) {
+			return Optional.empty();
+		}
+		return userRepository.findByEmail(email);
+	}
   
 	// create user
 	@Transactional

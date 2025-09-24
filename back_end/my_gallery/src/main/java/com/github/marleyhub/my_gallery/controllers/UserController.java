@@ -29,6 +29,17 @@ public class UserController {
         return userService.getUsers();
     }
     
+    @GetMapping(value = "/{id}")
+    public Optional<User> getUser(@PathVariable Long id) {
+    	Optional<User> result = userService.getUser(id);
+    	
+    	if (result.isPresent()) {
+    		return result;
+    	} else {
+    		return Optional.empty();
+    	} 
+    }
+    
     @PostMapping
     public void createUser(@RequestBody User body) {
     	List<User> result = userService.createUser(body);

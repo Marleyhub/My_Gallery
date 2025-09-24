@@ -60,7 +60,7 @@ public class UserService {
     	if (body == null && id == null) {
     		return Optional.empty();
     	}
-   
+    	
     	return userRepository.findById(id).map(existingUser -> {
     		existingUser.setEmail(body.getEmail());
     		

@@ -21,6 +21,14 @@ public class UserService {
 	public List<User> getUsers() {
 		return userRepository.findAll();
 	}
+	
+	@Transactional(readOnly = true)
+	public Optional<User> getUser(Long id) {
+		if(id == null) {
+			return Optional.empty();
+		}
+		return userRepository.findById(id);
+	}
   
 	@Transactional
     public List<User> createUser(User body) {

@@ -42,12 +42,12 @@ public class UserService {
     }
     
     @Transactional
-    public Optional<User> updateUser(Long id, User body) {
-    	if (body == null) {
+    public Optional<User> updateUser(Long id, User body) { 
+    	if (body == null && id == null) {
     		return Optional.empty();
     	}
-    	
-    	return userRepository.findById(id).map((User existingUser) -> {
+   
+    	return userRepository.findById(id).map(existingUser -> {
     		existingUser.setEmail(body.getEmail());
     		
     		return userRepository.save(existingUser);

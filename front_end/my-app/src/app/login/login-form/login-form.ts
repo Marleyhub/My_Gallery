@@ -14,8 +14,7 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent {
    constructor(private http: HttpClient, private router: Router) {}
-
-
+   
   onSubmit(form: NgForm) {
     console.log(form.value)
     if (form.valid) {

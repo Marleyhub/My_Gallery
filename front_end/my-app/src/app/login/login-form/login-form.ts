@@ -33,7 +33,7 @@ export class LoginFormComponent {
           alert('Login failed. Please check your email or password.');
         }
       });
-      
+
     } else {
       console.log('Form invalid');
     }

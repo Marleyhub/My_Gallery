@@ -24,14 +24,17 @@ export class LoginFormComponent {
         password: form.value.password
       };
 
-      this.http.post('http://localhost:8080/auth/login', loginPayload).subscribe({
+        this.http.post('http://localhost:8080/auth/login', loginPayload).subscribe({
         next: (response) => {
-          console.log('Login success', response)
+          console.log('Login success', response);
+          this.router.navigate(['/gallery']);
         },
         error: (err) => {
-          console.log('Login error', err)
+          console.error('Login failed:', err);
+          alert('Login failed. Please check your email or password.');
         }
       });
+      
     } else {
       console.log('Form invalid');
     }

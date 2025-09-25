@@ -28,9 +28,10 @@ public class AuthController {
 		String password = credentials.get("password");
 		
 		Optional<User> result = userService.getOneUser(email);
-		String userEmail = result.map(u -> u.getEmail()).orElse("No user with this email");
+		String userEmail = result.map(u -> u.getEmail()).orElse("Wrong user or password");
+		String userPassword = result.map(u -> u.getPassword()).orElse("Wrong user or password");
 		
-		if(userEmail.equals(email) && "1234567".equals(password)) {
+		if(userEmail.equals(email) && userPassword.equals(password)) {
 			return ResponseEntity.ok(Map.of("massage", "login successful"));
 		} else {
 			return ResponseEntity.status(401).body(Map.of("message", "Invalid user or password"));

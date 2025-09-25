@@ -13,7 +13,8 @@ import { Router } from '@angular/router';
   imports: [FormsModule, CommonModule]  
 })
 export class LoginFormComponent {
-  constructor(protected http: HttpClient) {}
+   constructor(private http: HttpClient, private router: Router) {}
+
 
   onSubmit(form: NgForm) {
     console.log(form.value)

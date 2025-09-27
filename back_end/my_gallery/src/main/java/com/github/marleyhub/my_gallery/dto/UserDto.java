@@ -4,14 +4,16 @@ public class UserDto {
 
 	private Long id;
 	private String email;
+	private String password;
 	
 	public UserDto() {
 		
 	}
 	
-	public UserDto(Long id, String email) {
+	public UserDto(Long id, String email, String password) {
 		this.id = id;
 		this.email = email;
+		this.password = password;
 	}
 	
 	public UserDto(com.github.marleyhub.my_gallery.entities.User user) {
@@ -33,5 +35,13 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getPassword() {
+    	return this.password;
+    }
+    
+    public void setPassword(String password) {
+    	this.password = password;
     }
 }

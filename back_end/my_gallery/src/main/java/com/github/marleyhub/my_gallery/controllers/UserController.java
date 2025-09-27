@@ -26,13 +26,13 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
+    public List<UserDto> getUsers() {
         return userService.getUsers();
     }
     
     @GetMapping(value = "/{id}")
-    public Optional<User> getUser(@PathVariable Long id) {
-    	Optional<User> result = userService.getUser(id);
+    public Optional<UserDto> getUser(@PathVariable Long id) {
+    	Optional<UserDto> result = userService.getUser(id);
     	
     	if (result.isPresent()) {
     		return result;
@@ -44,7 +44,7 @@ public class UserController {
     
     @PostMapping
     public void createUser(@RequestBody User body) {
-    	List<User> result = userService.createUser(body);
+    	List<UserDto> result = userService.createUser(body);
     	System.out.println(result);
     }
     
@@ -55,7 +55,7 @@ public class UserController {
     
     @PutMapping(value = "/{id}/replacement")
     public void updateUser(@PathVariable Long id, @RequestBody User body) {
-    	Optional<User> updated = userService.updateUser(id, body);
+    	Optional<UserDto> updated = userService.updateUser(id, body);
     	
     	if(updated.isPresent()) {
     		System.out.println("User updated: " + updated.get());

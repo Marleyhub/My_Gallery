@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.marleyhub.my_gallery.entities.User;
+import com.github.marleyhub.my_gallery.dto.UserDto;
 import com.github.marleyhub.my_gallery.services.UserService;
 
 @RestController
@@ -27,7 +27,7 @@ public class AuthController {
 		String email = credentials.get("email");
 		String password = credentials.get("password");
 		
-		Optional<User> result = userService.getOneUser(email);
+		Optional<UserDto> result = userService.getOneUser(email);
 		String userEmail = result.map(u -> u.getEmail()).orElse("Wrong user or password");
 		String userPassword = result.map(u -> u.getPassword()).orElse("Wrong user or password");
 		

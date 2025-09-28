@@ -43,8 +43,8 @@ public class UserController {
     
     
     @PostMapping
-    public void createUser(@RequestBody User body) {
-    	List<UserDto> result = userService.createUser(body);
+    public void createUser(@RequestBody UserDto body) {
+    	UserDto result = userService.createUser(body);
     	System.out.println(result);
     }
     
@@ -54,7 +54,7 @@ public class UserController {
     }
     
     @PutMapping(value = "/{id}/replacement")
-    public void updateUser(@PathVariable Long id, @RequestBody User body) {
+    public void updateUser(@PathVariable Long id, @RequestBody UserDto body) {
     	Optional<UserDto> updated = userService.updateUser(id, body);
     	
     	if(updated.isPresent()) {

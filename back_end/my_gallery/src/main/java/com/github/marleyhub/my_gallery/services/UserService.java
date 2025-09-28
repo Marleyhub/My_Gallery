@@ -46,8 +46,8 @@ public class UserService {
   
 	// create user
 	@Transactional
-    public UserDto createUser(User body) {
-    	User result = userRepository.save(body);
+    public UserDto createUser(UserDto body) {
+    	User result = UserMapper.toEntity(body);
     	return UserMapper.toDto(result);
     }
     
@@ -59,16 +59,13 @@ public class UserService {
     
     // update user
     @Transactional
-    public Optional<UserDto> updateUser(Long id, User body) { 
+    public Optional<UserDto> updateUser(Long id, UserDto body) { 
     	if (body == null && id == null) {
     		return Optional.empty();
     	}
-    	
     	return userRepository.findById(id).map(existingUser -> {
     		existingUser.setEmail(body.getEmail());
     		return UserMapper.toDto(userRepository.save(existingUser)); 
-    	});
-    	
-    	
+    	});	
     }
 }

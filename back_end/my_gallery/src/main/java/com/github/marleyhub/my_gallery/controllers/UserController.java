@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.marleyhub.my_gallery.dto.UserDto;
-import com.github.marleyhub.my_gallery.entities.User;
 import com.github.marleyhub.my_gallery.services.UserService;
 
 @RestController

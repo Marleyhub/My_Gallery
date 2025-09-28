@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.marleyhub.my_gallery.dto.UserDto;
+import com.github.marleyhub.my_gallery.dto.request.LoginRequest;
+import com.github.marleyhub.my_gallery.dto.response.LoginResponse;
+import com.github.marleyhub.my_gallery.dto.response.UserResponseDto;
 import com.github.marleyhub.my_gallery.services.UserService;
 
 @RestController
@@ -23,19 +26,22 @@ public class AuthController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity <Map<String, String>> login(@RequestBody Map<String, String> credentials) {
-		String email = credentials.get("email");
-		String password = credentials.get("password");
+	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request)  {
+		String email = request.getEmail();
+		String password = request.getPassword();
 		
 		Optional<UserDto> result = userService.getOneUser(email);
-		String userEmail = result.map(u -> u.getEmail()).orElse("Wrong user or password");
-		String userPassword = result.map(u -> u.getPassword()).orElse("Wrong user or password");
 		
-		if(userEmail.equals(email) && userPassword.equals(password)) {
-			return ResponseEntity.ok(Map.of("massage", "login successful"));
-		} else {
-			return ResponseEntity.status(401).body(Map.of("message", "Invalid user or password"));
+		if(result.isPresent()) {
+	        UserDto user = result.get();
+		
+			if(user.getEmail().equals(email) && user.getPassword().equals(password)) {
+				UserResponseDto safeUser = new UserResponseDto(user.getEmail(), user.getId()); 
+				return ResponseEntity.ok(new LoginResponse(safeUser ,"Login Successful"));
+			} else {
+				return ResponseEntity.status(401).body(new LoginResponse(null, "Invalid password"));
+			}
 		}
-		
+		return ResponseEntity.status(401).body(new LoginResponse(null ,"LoginError"));
 	}
 }

@@ -1,6 +1,5 @@
 package com.github.marleyhub.my_gallery.auth_controller;
 
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;

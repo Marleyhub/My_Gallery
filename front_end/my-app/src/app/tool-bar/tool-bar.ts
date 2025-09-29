@@ -23,12 +23,12 @@ export class ToolBar {
   const formData = new FormData();
   formData.append('file', file);
 
-   this.http.post<{ url: string}>('http://localhost:8080/upload', formData).subscribe({
+   this.http.post<{ url: string}>('http://localhost:8080/uploads/upload', formData).subscribe({
         next: (response) => {
           console.log("File uploaded successfully:", response.url);
         },
         error: (err) => {
-          console.error('Uploaded Faild', err)
+          console.error('Upload Faild', err)
         }
       });
 }

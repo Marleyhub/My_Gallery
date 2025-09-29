@@ -1,13 +1,22 @@
-<mat-toolbar>
-  <button matIconButton class="example-icon" aria-label="Example icon-button with menu icon">
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Menu">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>My App</span>
+
+  <span>My Gallery</span>
   <span class="example-spacer"></span>
-  <button matIconButton class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+
+  <!-- Upload Button -->
+  <button mat-icon-button class="example-icon upload-btn" aria-label="Upload" (click)="fileInput.click()">
+    <mat-icon>cloud_upload</mat-icon>
+  </button>
+  <input type="file" hidden #fileInput (change)="onFileSelected($event)" />
+
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Favorite">
     <mat-icon>favorite</mat-icon>
   </button>
-  <button matIconButton class="example-icon" aria-label="Example icon-button with share icon">
+
+  <button mat-icon-button class="example-icon" aria-label="Share">
     <mat-icon>share</mat-icon>
   </button>
 </mat-toolbar>

@@ -25,6 +25,7 @@ public class UploadController {
 			String url = s3Service.uploadFile(file);
 			return ResponseEntity.ok().body(new UploadResponse(url));
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(500).body("Upload Faild" + e.getMessage());
 		}
 	}

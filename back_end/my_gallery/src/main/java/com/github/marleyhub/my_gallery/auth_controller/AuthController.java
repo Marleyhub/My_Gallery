@@ -42,11 +42,13 @@ public class AuthController {
 		
 			if(user.getEmail().equals(email) && user.getPassword().equals(password)) {
 				UserResponseDto safeUser = new UserResponseDto(user.getEmail(), user.getId()); 
-				return ResponseEntity.ok(new LoginResponse(safeUser ,"Login Successful"));
+				String token = jwtService.generateToken(user.getEmail(), user.getId().toString());
+				
+				return ResponseEntity.ok(new LoginResponse(safeUser, token, "Login Successful"));
 			} else {
-				return ResponseEntity.status(401).body(new LoginResponse(null, "Invalid password"));
+				return ResponseEntity.status(401).body(new LoginResponse(null, null, "Invalid password"));
 			}
 		}
-		return ResponseEntity.status(401).body(new LoginResponse(null ,"LoginError"));
+		return ResponseEntity.status(401).body(new LoginResponse(null ,null, "LoginError"));
 	}
 }

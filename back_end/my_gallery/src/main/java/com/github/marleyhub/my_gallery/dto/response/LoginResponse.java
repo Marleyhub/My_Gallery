@@ -5,9 +5,11 @@ public class LoginResponse{
 	
 	private String message;
 	private UserResponseDto user;
+	private String token;
 	
-	public LoginResponse(UserResponseDto user, String message) {
+	public LoginResponse(UserResponseDto user, String token,  String message) {
 		this.user = user;
+		this.token = token;
 		this.message = message;
 	}
 
@@ -25,6 +27,14 @@ public class LoginResponse{
 
 	public void setUser(UserResponseDto user) {
 		this.user = user;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.github.marleyhub.my_gallery.services.S3Service;
+import com.github.marleyhub.my_gallery.services.UploadService;
 
 @RestController
 @RequestMapping("/uploads")
 public class UploadController {
 
-	private final S3Service s3Service;
+	private final UploadService s3Service;
 	
-	public UploadController(S3Service s3Service) {
+	public UploadController(UploadService s3Service) {
 		this.s3Service = s3Service;
 	}
 	

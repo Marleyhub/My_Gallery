@@ -10,11 +10,11 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
-public class S3Service {
+public class UploadService {
 	 private final S3Client s3Client;
 	 private final String bucketName = "marley-gallery-bucket";
 	 
-	 public S3Service(S3Client s3Client) {
+	 public UploadService(S3Client s3Client) {
 		 this.s3Client = s3Client;	 
 	 }
 	 

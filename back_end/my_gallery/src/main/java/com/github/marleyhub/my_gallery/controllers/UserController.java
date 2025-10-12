@@ -3,25 +3,34 @@ package com.github.marleyhub.my_gallery.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.marleyhub.my_gallery.dto.UserDto;
+import com.github.marleyhub.my_gallery.services.JwtService;
+import com.github.marleyhub.my_gallery.services.UploadService;
 import com.github.marleyhub.my_gallery.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
     private final UserService userService;
+    private final UploadService s3Service;
+    private final JwtService jwtService;
+   
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UploadService s3Service, JwtService jwtService) {
         this.userService = userService;
+        this.s3Service = s3Service;
+        this.jwtService = jwtService;
     }
 
     @GetMapping
@@ -63,5 +72,16 @@ public class UserController {
     	}
     }
     
-    
+    @GetMapping("/images")
+    public ResponseEntity<List<String>> getUserImages(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.substring(7);
+        if (!jwtService.isTokenValid(token)) {
+            return ResponseEntity.status(401).build();
+        }
+
+        String userId = jwtService.extractUserId(token); // get user identity
+        List<String> images = s3Service.getUserImages(userId);
+        return ResponseEntity.ok(images);
+    }
+
 }

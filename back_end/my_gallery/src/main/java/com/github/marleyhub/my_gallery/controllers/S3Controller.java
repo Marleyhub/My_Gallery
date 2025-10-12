@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.github.marleyhub.my_gallery.services.UploadService;
+import com.github.marleyhub.my_gallery.services.S3Service;
 
 @RestController
 @RequestMapping("/uploads")
-public class UploadController {
+public class S3Controller {
 
-	private final UploadService s3Service;
+	private final S3Service s3Service;
 	
-	public UploadController(UploadService s3Service) {
+	public S3Controller(S3Service s3Service) {
 		this.s3Service = s3Service;
 	}
 	
 	@PostMapping("/upload")
-	public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file) {
+	public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file, String userId) {
 		try {
-			String url = s3Service.uploadFile(file);
+			String url = s3Service.uploadFile(userId, file);
 			return ResponseEntity.ok().body(new UploadResponse(url));
 		} catch (Exception e) {
 			e.printStackTrace();

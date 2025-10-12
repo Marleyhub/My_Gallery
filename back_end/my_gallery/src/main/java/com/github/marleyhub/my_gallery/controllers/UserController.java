@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.marleyhub.my_gallery.dto.UserDto;
 import com.github.marleyhub.my_gallery.services.JwtService;
-import com.github.marleyhub.my_gallery.services.UploadService;
+import com.github.marleyhub.my_gallery.services.S3Service;
 import com.github.marleyhub.my_gallery.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
     private final UserService userService;
-    private final UploadService s3Service;
+    private final S3Service s3Service;
     private final JwtService jwtService;
    
 
-    public UserController(UserService userService, UploadService s3Service, JwtService jwtService) {
+    public UserController(UserService userService, S3Service s3Service, JwtService jwtService) {
         this.userService = userService;
         this.s3Service = s3Service;
         this.jwtService = jwtService;

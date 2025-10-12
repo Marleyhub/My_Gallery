@@ -18,7 +18,6 @@ public class UploadService {
 		 this.s3Client = s3Client;	 
 	 }
 	 
-	 
 	 public String uploadFile(MultipartFile file) throws IOException {
 		 
 		 // media unique identifier for url safe with uuid

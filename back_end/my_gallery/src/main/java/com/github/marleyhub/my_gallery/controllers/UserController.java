@@ -49,7 +49,6 @@ public class UserController {
     	} 
     }
     
-    
     @PostMapping
     public void createUser(@RequestBody UserDto body) {
     	UserDto result = userService.createUser(body);

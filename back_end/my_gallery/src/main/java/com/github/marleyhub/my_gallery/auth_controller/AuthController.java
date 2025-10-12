@@ -35,15 +35,18 @@ public class AuthController {
 		String email = request.getEmail();
 		String password = request.getPassword();
 		
+		// Optional validation
 		Optional<UserDto> result = userService.getOneUser(email);
-		
 		if(result.isPresent()) {
 	        UserDto user = result.get();
-		
+	        
+	        // Password validation
 			if(user.getEmail().equals(email) && user.getPassword().equals(password)) {
-				UserResponseDto safeUser = new UserResponseDto(user.getEmail(), user.getId()); 
+				
+				// Creating jwt token
 				String token = jwtService.generateToken(user.getEmail(), user.getId().toString());
 				
+				UserResponseDto safeUser = new UserResponseDto(user.getEmail(), user.getId()); 				
 				return ResponseEntity.ok(new LoginResponse(safeUser, token, "Login Successful"));
 			} else {
 				return ResponseEntity.status(401).body(new LoginResponse(null, null, "Invalid password"));

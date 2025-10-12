@@ -13,7 +13,7 @@ import com.github.marleyhub.my_gallery.dto.request.LoginRequest;
 import com.github.marleyhub.my_gallery.dto.response.LoginResponse;
 import com.github.marleyhub.my_gallery.dto.response.UserResponseDto;
 import com.github.marleyhub.my_gallery.services.JwtService;
-import com.github.marleyhub.my_gallery.services.UploadService;
+import com.github.marleyhub.my_gallery.services.S3Service;
 import com.github.marleyhub.my_gallery.services.UserService;
 
 @RestController
@@ -21,10 +21,10 @@ import com.github.marleyhub.my_gallery.services.UserService;
 public class AuthController {
 	
 	private final UserService userService;
-	private final UploadService s3service;
+	private final S3Service s3service;
 	private final JwtService jwtService;
 	
-	public AuthController(UserService userService, UploadService s3Service, JwtService jwtService) {
+	public AuthController(UserService userService, S3Service s3Service, JwtService jwtService) {
 		this.userService = userService;
 		this.s3service = s3Service;
 		this.jwtService = jwtService;

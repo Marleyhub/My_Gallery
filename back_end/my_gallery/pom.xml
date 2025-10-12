@@ -58,11 +58,17 @@
 			<scope>runtime</scope>
 		</dependency>
 		 <!-- AWS S3 SDK v2 -->
+		 <!-- Auth is needed for signing requests -->
 	    <dependency>
 	        <groupId>software.amazon.awssdk</groupId>
 	        <artifactId>s3</artifactId>
 	        <version>2.25.47</version>
 	    </dependency>
+	    <dependency>
+	        <groupId>software.amazon.awssdk</groupId>
+	        <artifactId>auth</artifactId>
+	        <version>2.25.47</version>
+    	</dependency>
 	     <!-- JJWT -->
 		<dependency>
 		    <groupId>io.jsonwebtoken</groupId>

@@ -25,13 +25,13 @@ export class ToolBar {
   const userId = user?.id;
 
   const file = input.files[0];
-  
+
   // Form
   const formData = new FormData();
   formData.append('file', file);
   formData.append('userId', userId);
 
-   this.http.post<{ url: string}>('http://localhost:8080/uploads/upload', formData).subscribe({
+   this.http.post<{ url: string}>('http://localhost:8080/users/upload', formData).subscribe({
         next: (response) => {
           console.log("File uploaded successfully:", response.url);
         },
@@ -39,7 +39,5 @@ export class ToolBar {
           console.error('Upload Faild', err)
         }
       });
-}
-
-
+  }
 }

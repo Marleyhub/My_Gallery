@@ -19,15 +19,15 @@ export class GalleryPage implements OnInit {
   ngOnInit(): void {
     this.loadUserImages();
   }
-
   private loadUserImages(): void {
+    // saved at outh into local storage rigth after login
     const token = localStorage.getItem('token');
 
     if (!token) {
       console.error('No token found — user must log in first.');
       return;
     }
-
+    // fetch images from server
     this.http.get<string[]>('http://localhost:8080/users/images', {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({

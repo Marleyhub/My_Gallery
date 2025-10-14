@@ -52,7 +52,7 @@ public class S3Service {
 	                .prefix("user_" + userId + "/")
 	                .build();
 	        
-	        // Call to S3 bucket to return list os keys inside a response object
+	        // Call to S3 bucket to return list of keys inside a response object
 		  	ListObjectsV2Response result = s3Client.listObjectsV2(request);
 	        
 	        // Maps each key to a presigned url and serves front end to getImage
@@ -74,7 +74,6 @@ public class S3Service {
 	                b -> b.signatureDuration(Duration.ofMinutes(15))
 	                      .getObjectRequest(getObjectRequest)
 	        );
-		 
 		 return presignedRequest.url().toString();
 	 }
 	       

@@ -1,19 +1,7 @@
-<mat-grid-list cols="4" rowHeight="2:1">
-  <app-tool-bar></app-tool-bar>
-  <mat-grid-tile>1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
-  <mat-grid-tile>6</mat-grid-tile>
-  <mat-grid-tile>7</mat-grid-tile>
-  <mat-grid-tile>8</mat-grid-tile>
-  <mat-grid-tile>9</mat-grid-tile>
-  <mat-grid-tile>10</mat-grid-tile>
-  <mat-grid-tile>12</mat-grid-tile>
-  <mat-grid-tile>13</mat-grid-tile>
-  <mat-grid-tile>14</mat-grid-tile>
-  <mat-grid-tile>16</mat-grid-tile>
-  <mat-grid-tile>17</mat-grid-tile>
-  <mat-grid-tile>18</mat-grid-tile>
-  <mat-grid-tile>19</mat-grid-tile>
+<app-tool-bar></app-tool-bar>
+
+<mat-grid-list cols="4" rowHeight="2:1" gutterSize="10px">
+  <mat-grid-tile *ngFor="let img of images">
+    <img [src]="img" alt="User image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+  </mat-grid-tile>
 </mat-grid-list>

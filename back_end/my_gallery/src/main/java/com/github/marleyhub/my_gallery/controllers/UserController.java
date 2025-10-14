@@ -83,5 +83,16 @@ public class UserController {
         List<String> images = s3Service.listUserImages(userId);
         return ResponseEntity.ok(images);
     }
-
+    
+    @PostMapping("/upload")
+	public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file,  @RequestParam String userId) {
+		try {
+			String url = s3Service.uploadFile(file, userId);
+			return ResponseEntity.ok().body(new UploadResponse(url));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body("Upload Faild" + e.getMessage());
+		}
+	}
+	record UploadResponse(String url) {}
 }

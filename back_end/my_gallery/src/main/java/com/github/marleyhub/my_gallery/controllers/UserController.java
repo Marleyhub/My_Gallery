@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.marleyhub.my_gallery.dto.UserDto;
 import com.github.marleyhub.my_gallery.services.JwtService;
@@ -26,7 +28,6 @@ public class UserController {
     private final S3Service s3Service;
     private final JwtService jwtService;
    
-
     public UserController(UserService userService, S3Service s3Service, JwtService jwtService) {
         this.userService = userService;
         this.s3Service = s3Service;

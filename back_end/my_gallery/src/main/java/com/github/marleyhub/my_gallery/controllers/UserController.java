@@ -78,8 +78,8 @@ public class UserController {
             return ResponseEntity.status(401).build();
         }
 
-        String userId = jwtService.extractUserId(token); // get user identity
-        List<String> images = s3Service.getUserImages(userId);
+        String userId = jwtService.extractUserId(token); // get user id
+        List<String> images = s3Service.listUserImages(userId);
         return ResponseEntity.ok(images);
     }
 

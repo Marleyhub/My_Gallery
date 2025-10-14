@@ -26,7 +26,7 @@ public class JwtService {
 	 *  SIGNED JWT
 	 *  The jwt flow begins at login where, when successfully logged it calls "generateTokens()"
 	*/ 
-	public String generateToken(String userId, String email) {
+	public String generateToken(String email, String userId) {
 	        Instant now = Instant.now();
 	        return Jwts.builder()
 	                .subject(userId)  // This sets the standard claim "sub"

@@ -27,7 +27,7 @@ public class S3Service {
 		 this.s3Presigner = s3Presigner;
 	 }
 	 
-	 public String uploadFile(String userId, MultipartFile file) throws IOException {
+	 public String uploadFile(MultipartFile file, String userId) throws IOException {
 		 // media unique identifier for url safe with uuid
 		 String key = "user_" + userId + "/" + UUID.randomUUID() + "-" + file.getOriginalFilename();
 		 
@@ -45,7 +45,7 @@ public class S3Service {
 		 return "https://" + bucketName + ".s3.us-east-2.amazonaws.com/" + key;
 	 }
 	 
-	 public List<String> getUserImages(String userId) {
+	 public List<String> listUserImages(String userId) {
 		 // Request set to list keys inside ListObjectsV2Response response (not accessible yet)
 		 ListObjectsV2Request request = ListObjectsV2Request.builder()
 	                .bucket(bucketName)
@@ -53,10 +53,10 @@ public class S3Service {
 	                .build();
 	        
 	        // Call to S3 bucket to return list os keys inside a response object
-	        ListObjectsV2Response response = s3Client.listObjectsV2(request);
+		  	ListObjectsV2Response result = s3Client.listObjectsV2(request);
 	        
 	        // Maps each key to a presigned url and serves front end to getImage
-	        return response.contents().stream()
+	        return result.contents().stream()
 	                .map(s3Object -> generatePresignedUrl(s3Object.key()))
 	                .toList();
 	 }

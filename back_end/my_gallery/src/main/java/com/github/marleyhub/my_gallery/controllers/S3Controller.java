@@ -20,9 +20,10 @@ public class S3Controller {
 	}
 	
 	@PostMapping("/upload")
-	public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file, String userId) {
+	public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file,  @RequestParam String userId) {
 		try {
-			String url = s3Service.uploadFile(userId, file);
+			System.out.println("Esse é o id do usuário enviado" + userId);
+			String url = s3Service.uploadFile(file, userId);
 			return ResponseEntity.ok().body(new UploadResponse(url));
 		} catch (Exception e) {
 			e.printStackTrace();

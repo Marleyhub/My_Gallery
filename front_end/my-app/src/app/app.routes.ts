@@ -8,7 +8,7 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        loadComponent: () => import('./login/login-page/login').then(m =>m.LoginPage)
+        loadComponent: () => import('./auth/login/login-page/login').then(m =>m.LoginPage)
     },
     {
         path: 'gallery',

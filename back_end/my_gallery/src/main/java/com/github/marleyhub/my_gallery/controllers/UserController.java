@@ -3,6 +3,7 @@ package com.github.marleyhub.my_gallery.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,41 +36,64 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDto> getUsers() {
-        return userService.getUsers();
+    public ResponseEntity<List<UserDto>> getUsers() {
+    	List<UserDto> users = userService.getUsers();
+    	
+    	if(users.isEmpty()) {
+    		return ResponseEntity.noContent().build();
+    	}
+    	return ResponseEntity.ok(users);
     }
     
     @GetMapping(value = "/{id}")
-    public Optional<UserDto> getUser(@PathVariable Long id) {
+    public ResponseEntity<Optional<UserDto>> getUser(@PathVariable Long id) {
     	Optional<UserDto> result = userService.getUser(id);
     	
-    	if (result.isPresent()) {
-    		return result;
-    	} else {
-    		return Optional.empty();
-    	} 
+    	if(result.isEmpty()) {
+    		return ResponseEntity.noContent().build();
+    	}
+    	return ResponseEntity.ok(result);
     }
     
     @PostMapping
-    public void createUser(@RequestBody UserDto body) {
+    public ResponseEntity<String> createUser(@RequestBody UserDto body) {
     	UserDto result = userService.createUser(body);
-    	System.out.println(result);
+    	if(result == null) {
+    		return ResponseEntity
+    				.status(HttpStatus.BAD_REQUEST)
+    				.body("User Creation faild");
+    	}
+    	return ResponseEntity
+    			.status(HttpStatus.CREATED)
+    			.body("User created sucessfully");
     }
     
     @DeleteMapping(value = "/{id}")
-    public void deleteUser(@PathVariable Long id) {
-    	userService.deleteUser(id);
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    	boolean deleted = userService.deleteUser(id);
+    	
+    	if(!deleted) {
+    		return ResponseEntity
+    				.status(HttpStatus.NOT_FOUND)
+    				.body("User not found");
+    	}
+    	return ResponseEntity
+    			.status(HttpStatus.NO_CONTENT)
+    			.body("User deleted");
     }
     
     @PutMapping(value = "/{id}/replacement")
-    public void updateUser(@PathVariable Long id, @RequestBody UserDto body) {
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserDto body) {
     	Optional<UserDto> updated = userService.updateUser(id, body);
-    	
+    
     	if(updated.isPresent()) {
-    		System.out.println("User updated: " + updated.get());
-    	} else {
-    		System.out.println("User not found or body null");
+    		return ResponseEntity
+    				.status(HttpStatus.OK)
+    				.body("User: " + updated.get() + " -> Updated Succesfully");
     	}
+    	return ResponseEntity
+    			.status(HttpStatus.BAD_REQUEST)
+    			.body("User not found");
     }
     
     @GetMapping("/images")

@@ -46,14 +46,26 @@ public class UserService {
 	// create user
 	@Transactional
     public UserDto createUser(UserDto body) {
-    	User result = UserMapper.toEntity(body);
-    	return UserMapper.toDto(result);
+		if (body == null) {
+	        throw new IllegalArgumentException("User data must not be null");
+	    }
+		
+		if (userRepository.existsByEmail(body.getEmail())) {
+		    throw new IllegalArgumentException("User with this email already exists");
+		}
+    	User entity = UserMapper.toEntity(body);
+    	User savedUser = userRepository.save(entity);
+    	return UserMapper.toDto(savedUser);
     }
     
 	// delete user
     @Transactional
-    public void deleteUser(Long id) {
+    public boolean deleteUser(Long id) {
+    	if (!userRepository.existsById(id)) {
+    		return false;
+    	}
     	userRepository.deleteById(id);
+    	return true;
     }
     
     // update user

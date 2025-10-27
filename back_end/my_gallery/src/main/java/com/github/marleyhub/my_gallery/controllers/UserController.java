@@ -57,15 +57,20 @@ public class UserController {
     
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody UserDto body) {
-    	UserDto result = userService.createUser(body);
-    	if(result == null) {
-    		return ResponseEntity
-    				.status(HttpStatus.BAD_REQUEST)
-    				.body("User Creation faild");
-    	}
-    	return ResponseEntity
-    			.status(HttpStatus.CREATED)
-    			.body("User created sucessfully");
+        try {
+            userService.createUser(body);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body("User created successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("User creation failed: " + e.getMessage());
+        }
     }
     
     @DeleteMapping(value = "/{id}")

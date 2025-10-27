@@ -3,6 +3,7 @@ package com.github.marleyhub.my_gallery.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +15,12 @@ import com.github.marleyhub.my_gallery.repositories.UserRepository;
 @Service
 public class UserService {
 	private final UserRepository userRepository;
-	
-	public UserService(UserRepository userRepository) {
-		this.userRepository = userRepository;	
-	}
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 	
 	// get all users
 	@Transactional(readOnly = true)
@@ -53,8 +56,12 @@ public class UserService {
 		if (userRepository.existsByEmail(body.getEmail())) {
 		    throw new IllegalArgumentException("User with this email already exists");
 		}
-    	User entity = UserMapper.toEntity(body);
-    	User savedUser = userRepository.save(entity);
+		// encode password before saving
+        String encodedPassword = passwordEncoder.encode(body.getPassword());
+        body.setPassword(encodedPassword);
+
+        User entity = UserMapper.toEntity(body);
+        User savedUser = userRepository.save(entity);
     	return UserMapper.toDto(savedUser);
     }
     

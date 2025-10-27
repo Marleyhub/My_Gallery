@@ -48,4 +48,5 @@
   <p class="register__alt">
     Already have an account? <a routerLink="/login">Sign in</a>
   </p>
+  <p *ngIf="message" class="message">{{ message }}</p>
 </form>

@@ -107,6 +107,13 @@ $muted: #000000;
   }
 }
 
+.message {
+    margin-top: 1rem;
+    text-align: center;
+    color: #2b9348; // green for success
+    font-weight: 500;
+  }
+
 body {
   background: linear-gradient(180deg, $bg 0%, #d0c8c8 100%);
   padding: 24px;

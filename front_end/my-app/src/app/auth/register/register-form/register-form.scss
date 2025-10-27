@@ -1,0 +1,113 @@
+$bg: #f9f9f9;
+$card: #ffffff;
+$accent: #3bb5f6; 
+$text: #0f172a;
+$muted: #000000;
+
+.register-form {
+  max-width: 450px;
+  margin: 48px auto;
+  padding: 80px 100px;
+  background: $card;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+  &__title {
+    margin: 0 0 18px 0;
+    font-size: 1.5rem;
+    color: $text;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .field {
+    margin-bottom: 28px;
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      color: $muted;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(3, 4, 7, 0.08);
+      font-size: 0.95rem;
+      outline: none;
+      transition: box-shadow 150ms ease, border-color 150ms ease;
+
+      &:focus {
+        box-shadow: 0 0 0 4px fade-out($accent, 0.92);
+        border-color: $accent;
+      }
+
+      &::placeholder {
+        color: lighten($muted, 40%);
+      }
+    }
+
+    .field__error {
+      margin-top: 6px;
+
+      small {
+        color: #dc2626;
+        font-size: 0.78rem;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+
+    .btn {
+      background: $accent;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(59, 130, 246, 0.18);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 16px rgba(59, 130, 246, 0.25);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__alt {
+    margin-top: 20px;
+    text-align: center;
+    color: $muted;
+    font-size: 0.9rem;
+
+    a {
+      color: $accent;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+body {
+  background: linear-gradient(180deg, $bg 0%, #d0c8c8 100%);
+  padding: 24px;
+}

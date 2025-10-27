@@ -1,6 +1,7 @@
 package com.github.marleyhub.my_gallery.controllers;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -56,20 +57,20 @@ public class UserController {
     }
     
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody UserDto body) {
+    public ResponseEntity<Map<String, String>> createUser(@RequestBody UserDto body) {
         try {
             userService.createUser(body);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body("User created successfully");
+                    .body(Map.of("message", "User created successfully"));
         } catch (IllegalArgumentException e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(e.getMessage());
+                    .body(Map.of("message", e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("User creation failed: " + e.getMessage());
+                    .body(Map.of("message","User creation failed: " + e.getMessage()));
         }
     }
     

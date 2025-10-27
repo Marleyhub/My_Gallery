@@ -46,10 +46,12 @@ public class S3Service {
 	 }
 	 
 	 public List<String> listUserImages(String userId) {
+		  String prefix = "user_" + userId + "/";
+		  
 		 // Request set to list keys inside ListObjectsV2Response response (not accessible yet)
 		 ListObjectsV2Request request = ListObjectsV2Request.builder()
 	                .bucket(bucketName)
-	                .prefix("user_" + userId + "/")
+	                .prefix(prefix)
 	                .build();
 	        
 	        // Call to S3 bucket to return list of keys inside a response object

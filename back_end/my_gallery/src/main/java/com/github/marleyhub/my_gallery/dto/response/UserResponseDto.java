@@ -3,10 +3,20 @@ package com.github.marleyhub.my_gallery.dto.response;
 public class UserResponseDto {
 	 private String email;
 	 private Long id;
+	 private String sid;
 
 	 public  UserResponseDto() {
 	 }
-	
+	 public UserResponseDto(String email, String sid) {
+		 this.sid = sid;
+		 this.email = email;
+	 }
+	 public String getSid() {
+		return sid;
+	}
+	 public void setSid(String sid) {
+		 this.sid = sid;
+	 }
 	 public  UserResponseDto(String email, Long id) {
 		 this.email = email;
 		 this.id = id;

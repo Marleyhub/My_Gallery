@@ -95,6 +95,15 @@
 	</dependencies>
 	<build>
 		<plugins>
+		<plugin>
+				<!--Heroku pluggon -->
+    			<groupId>com.heroku.sdk</groupId>
+			    <artifactId>heroku-maven-plugin</artifactId>
+			    <version>3.0.7</version>
+			    <configuration>
+			    	<logProgress>true</logProgress>
+			    </configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>

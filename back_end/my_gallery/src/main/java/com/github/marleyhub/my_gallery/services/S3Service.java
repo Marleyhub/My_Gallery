@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.time.Duration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,9 +19,12 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 
 @Service
 public class S3Service {
+	 @Value("${AWS_S3_BUCKET}")
+	 private String aws_bucket;
+	
 	 private final S3Client s3Client;
 	 private final S3Presigner s3Presigner;
-	 private final String bucketName = "marley-gallery-bucket";
+	 private final String bucketName = aws_bucket;
 	 
 	 public S3Service(S3Client s3Client, S3Presigner s3Presigner) {
 		 this.s3Client = s3Client;

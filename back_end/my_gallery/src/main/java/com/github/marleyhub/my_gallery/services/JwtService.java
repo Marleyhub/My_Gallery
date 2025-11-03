@@ -18,8 +18,12 @@ public class JwtService {
 	public JwtService () {
 		
 	}
+	
+	@Value("${JWT_SECRET}")
+	private String secretKey;
+	
 	// Must be at least 32 chars for HS256 instanced at compile time
-	private static final String SECRET_KEY = "thisismyveryverysecretphrasethatshouldbechangedlater";
+	private final String SECRET_KEY = secretKey;
 	// not static because it is instanced at runTime 
 	private final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 

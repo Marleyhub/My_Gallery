@@ -15,7 +15,7 @@ import { AuthService } from '../../auth';
 export class RegisterFormComponent {
   isLoading = false;
   message = '';
-  private apiUrl = 'https://marleyhub.github.io/My_Gallery/users';
+  private apiUrl = 'https://my-gallery-fe8414be2560.herokuapp.com/users';
 
   constructor(
     private http: HttpClient,

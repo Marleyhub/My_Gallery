@@ -31,7 +31,7 @@ export class ToolBar {
   formData.append('file', file);
   formData.append('userId', userId);
 
-   this.http.post<{ url: string}>('https://marleyhub.github.io/My_Gallery/upload', formData).subscribe({
+   this.http.post<{ url: string}>('https://my-gallery-fe8414be2560.herokuapp.com/upload', formData).subscribe({
         next: (response) => {
           console.log("File uploaded successfully:", response.url);
         },

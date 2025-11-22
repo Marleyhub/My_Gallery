@@ -32,7 +32,7 @@ export class LoginFormComponent {
       };
 
       // login
-      this.http.post<any>('http://localhost:8080/auth/login', loginPayload).subscribe({
+      this.http.post<any>('https://my-gallery-fe8414be2560.herokuapp.com/auth/login', loginPayload).subscribe({
         next: (response) => {
           console.log('Login success', response);
 

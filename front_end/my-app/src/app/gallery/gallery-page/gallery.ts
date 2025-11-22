@@ -28,7 +28,7 @@ export class GalleryPage implements OnInit {
       return;
     }
     // fetch images from server
-    this.http.get<string[]>('https://marleyhub.github.io/My_Gallery/images', {
+    this.http.get<string[]>('https://my-gallery-fe8414be2560.herokuapp.com/images', {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: (images) => {

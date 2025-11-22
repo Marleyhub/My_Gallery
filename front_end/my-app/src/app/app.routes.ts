@@ -14,11 +14,8 @@ export const routes: Routes = [
         path: 'gallery',
         loadComponent: () => import('./gallery/gallery-page/gallery').then(m =>m.GalleryPage)
     },
-     {
-    path: 'register',
-    loadComponent: () =>
-      import('./auth/register/register-page/register-page').then(
-        (m) => m.RegisterPageComponent
-      ),
-  },
+    {
+        path: 'register',
+        loadComponent: () => import('./auth/register/register-page/register-page').then((m) => m.RegisterPageComponent),
+    },
 ];

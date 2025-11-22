@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "baseHref": "/My_Gallery/",
+            "deployUrl": "/My_Gallery/",
+            "outputPath": "dist/my-app",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"

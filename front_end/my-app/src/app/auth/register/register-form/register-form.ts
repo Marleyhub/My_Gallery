@@ -15,7 +15,7 @@ import { AuthService } from '../../auth';
 export class RegisterFormComponent {
   isLoading = false;
   message = '';
-  private apiUrl = 'http://localhost:8080/users';
+  private apiUrl = 'https://marleyhub.github.io/My_Gallery/users';
 
   constructor(
     private http: HttpClient,

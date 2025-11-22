@@ -31,7 +31,7 @@ export class ToolBar {
   formData.append('file', file);
   formData.append('userId', userId);
 
-   this.http.post<{ url: string}>('http://localhost:8080/users/upload', formData).subscribe({
+   this.http.post<{ url: string}>('https://marleyhub.github.io/My_Gallery/upload', formData).subscribe({
         next: (response) => {
           console.log("File uploaded successfully:", response.url);
         },

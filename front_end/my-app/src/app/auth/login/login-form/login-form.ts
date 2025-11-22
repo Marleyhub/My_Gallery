@@ -4,13 +4,18 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth';
+import { RouterModule, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.html',
   standalone: true,
   styleUrls: ['./login-form.scss'],
-  imports: [FormsModule, CommonModule]
+  imports: [FormsModule,
+            CommonModule,
+            RouterModule,
+            RouterLink
+          ]
 })
 export class LoginFormComponent {
   images: string[] = [];

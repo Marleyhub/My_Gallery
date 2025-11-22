@@ -14,7 +14,7 @@ public class CorsConfig {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("https://marleyhub.github.io/My_Gallery/login")
+						.allowedOrigins("https://marleyhub.github.io/My_Gallery")
 						.allowedMethods("POST", "GET", "UPDATE", "DELETE", "OPTIONS")
 						.allowedHeaders("*")
 						.allowCredentials(true);

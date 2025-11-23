@@ -1,5 +1,7 @@
 package com.github.marleyhub.my_gallery.config;
 
+import com.github.marleyhub.my_gallery.security.JwtAuthenticationFilter;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 
 @Configuration
@@ -18,15 +22,19 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 	
 	  private final UserDetailsService userDetailsService;
+	  private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	
-	  public SecurityConfig(UserDetailsService userDetailsService) {
+	  public SecurityConfig(UserDetailsService userDetailsService,
+			  				JwtAuthenticationFilter jwtAuthenticationFilter) {
 	        this.userDetailsService = userDetailsService;
+	        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 	    }
 
 	@Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            .cors(cors -> {})
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**", "/public/**", "/users/**").permitAll()
                 .anyRequest().authenticated()
@@ -35,6 +43,9 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable());
+        
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }

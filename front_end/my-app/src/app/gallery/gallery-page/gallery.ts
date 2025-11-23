@@ -11,7 +11,9 @@ import { ToolBar } from '../../tool-bar/tool-bar';
   standalone: true,
   imports: [CommonModule, MatGridListModule, ToolBar],
 })
+
 export class GalleryPage implements OnInit {
+
   images: string[] = [];
 
   constructor(private http: HttpClient) {}
@@ -19,7 +21,9 @@ export class GalleryPage implements OnInit {
   ngOnInit(): void {
     this.loadUserImages();
   }
-   loadUserImages(): void {
+
+  // LOAD IMAGES
+  loadUserImages(): void {
     // saved at outh into local storage rigth after login
     const token = localStorage.getItem('token');
 
@@ -41,4 +45,33 @@ export class GalleryPage implements OnInit {
       }
     });
   }
+
+  // DELETE IMAGE
+  deleteImage(imageUrl: string): void {
+  const token = localStorage.getItem('token');
+  if (!token) return;
+
+  const key = this.extractKeyFromUrl(imageUrl);
+
+  this.http.delete(`https://my-gallery-fe8414be2560.herokuapp.com/images/${key}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  }).subscribe({
+    next: () => {
+      this.images = this.images.filter(img => img !== imageUrl);
+      console.log("Image deleted:", key);
+    },
+    error: err => console.error("Error deleting", err)
+  });
+}
+
+openImage(url: string): void {
+  window.open(url, "_blank");
+}
+
+private extractKeyFromUrl(url: string): string {
+  // S3 URL format:
+  // https://bucket.s3.amazonaws.com/user_123/xxxx.jpg
+  return url.split(".amazonaws.com/")[1];
+}
+
 }

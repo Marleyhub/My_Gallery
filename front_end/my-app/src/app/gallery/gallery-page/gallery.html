@@ -2,6 +2,21 @@
 
 <mat-grid-list cols="4" rowHeight="2:1" gutterSize="10px">
   <mat-grid-tile *ngFor="let img of images">
-    <img [src]="img" alt="User image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+    <div class="image-container">
+      
+      <!-- image -->
+      <img
+        [src]="img"
+        (click)="openImage(img)"
+        alt="User image"
+        class="thumb"
+      />
+
+      <!-- delete button -->
+      <button class="delete-btn" (click)="deleteImage(img); $event.stopPropagation()">
+        ✖
+      </button>
+
+    </div>
   </mat-grid-tile>
 </mat-grid-list>

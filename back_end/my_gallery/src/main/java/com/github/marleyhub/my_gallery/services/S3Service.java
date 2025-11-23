@@ -19,16 +19,19 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 
 @Service
 public class S3Service {
-	 @Value("${AWS_S3_BUCKET}")
-	 private String aws_bucket;
 	
 	 private final S3Client s3Client;
 	 private final S3Presigner s3Presigner;
-	 private final String bucketName = aws_bucket;
+	 private final String bucketName;
 	 
-	 public S3Service(S3Client s3Client, S3Presigner s3Presigner) {
+	 public S3Service(
+			 S3Client s3Client,
+			 S3Presigner s3Presigner,
+			 @Value("${AWS_S3_BUCKET}") String bucketName
+	) {
 		 this.s3Client = s3Client;
 		 this.s3Presigner = s3Presigner;
+		 this.bucketName = bucketName;
 	 }
 	 
 	 public String uploadFile(MultipartFile file, String userId) throws IOException {

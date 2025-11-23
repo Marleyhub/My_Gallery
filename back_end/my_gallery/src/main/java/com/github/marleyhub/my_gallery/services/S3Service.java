@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
@@ -69,6 +70,24 @@ public class S3Service {
 	                .map(s3Object -> generatePresignedUrl(s3Object.key()))
 	                .toList();
 	 }
+	 
+	 public boolean deleteImage(String userId, String fileName) {
+		    try {
+		        String key = "user_" + userId + "/" + fileName;
+
+		        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+		                .bucket(bucketName)
+		                .key(key)
+		                .build();
+
+		        s3Client.deleteObject(deleteObjectRequest);
+
+		        return true;
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        return false;
+		    }
+		}
 	 
 	 // called into map loop for each url that s3 returned
 	 private String generatePresignedUrl(String key) {

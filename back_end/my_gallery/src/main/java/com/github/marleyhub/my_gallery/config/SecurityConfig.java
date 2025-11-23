@@ -2,6 +2,7 @@ package com.github.marleyhub.my_gallery.config;
 
 import com.github.marleyhub.my_gallery.security.JwtAuthenticationFilter;
 
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,9 +57,9 @@ public class SecurityConfig {
 	    configuration.setAllowedOrigins(
 	        java.util.List.of("https://marleyhub.github.io")
 	    );
-	    configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-	    configuration.setAllowedHeaders(java.util.List.of("Authorization", "Content-Type"));
-	    configuration.setExposedHeaders(java.util.List.of("Authorization"));
+	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+	    configuration.setAllowedHeaders(List.of("*"));
+	    configuration.setExposedHeaders(List.of("*"));
 	    configuration.setAllowCredentials(true);
 
 	    var source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ToolBar } from '../../tool-bar/tool-bar';
 
+
 @Component({
   selector: 'gallery-page',
   styleUrl: 'gallery.scss',
@@ -20,6 +21,10 @@ export class GalleryPage implements OnInit {
 
   ngOnInit(): void {
     this.loadUserImages();
+  }
+
+  extractFileName(url: string): string {
+    return url.split("/").pop()!.split("?")[0];
   }
 
   // LOAD IMAGES
@@ -51,14 +56,14 @@ export class GalleryPage implements OnInit {
   const token = localStorage.getItem('token');
   if (!token) return;
 
-  const key = this.extractKeyFromUrl(imageUrl);
+  const fileName = this.extractFileName(imageUrl);
 
-  this.http.delete(`https://my-gallery-fe8414be2560.herokuapp.com/images/${key}`, {
+  this.http.delete(`https://my-gallery-fe8414be2560.herokuapp.com/images/${fileName}`, {
     headers: { Authorization: `Bearer ${token}` }
   }).subscribe({
     next: () => {
       this.images = this.images.filter(img => img !== imageUrl);
-      console.log("Image deleted:", key);
+      console.log("Image deleted:", fileName);
     },
     error: err => console.error("Error deleting", err)
   });

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -13,6 +13,9 @@ import { AuthService } from '../auth/auth';
   styleUrl: './tool-bar.scss'
 })
 export class ToolBar {
+  // to refresh page
+  @Output() uploaded = new EventEmitter<void>();
+
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   onFileSelected(event: Event): void {
@@ -31,9 +34,13 @@ export class ToolBar {
   formData.append('file', file);
   formData.append('userId', userId);
 
-   this.http.post<{ url: string}>('https://my-gallery-fe8414be2560.herokuapp.com/upload', formData).subscribe({
+   this.http.post<{ url: string}>(
+    'https://my-gallery-fe8414be2560.herokuapp.com/users/upload',
+     formData
+    ).subscribe({
         next: (response) => {
           console.log("File uploaded successfully:", response.url);
+          this.uploaded.emit();
         },
         error: (err) => {
           console.error('Upload Faild', err)

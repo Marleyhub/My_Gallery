@@ -1,4 +1,4 @@
-<app-tool-bar></app-tool-bar>
+<app-tool-bar (uploaded)="loadUserImages()"></app-tool-bar>
 
 <mat-grid-list cols="4" rowHeight="2:1" gutterSize="10px">
   <mat-grid-tile *ngFor="let img of images">

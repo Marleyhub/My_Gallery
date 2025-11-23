@@ -19,7 +19,7 @@ export class GalleryPage implements OnInit {
   ngOnInit(): void {
     this.loadUserImages();
   }
-  private loadUserImages(): void {
+   loadUserImages(): void {
     // saved at outh into local storage rigth after login
     const token = localStorage.getItem('token');
 

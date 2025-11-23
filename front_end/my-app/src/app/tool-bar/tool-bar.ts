@@ -35,7 +35,7 @@ export class ToolBar {
   formData.append('userId', userId);
 
    this.http.post<{ url: string}>(
-    'https://my-gallery-fe8414be2560.herokuapp.com/users/upload',
+    'https://my-gallery-fe8414be2560.herokuapp.com/images',
      formData
     ).subscribe({
         next: (response) => {

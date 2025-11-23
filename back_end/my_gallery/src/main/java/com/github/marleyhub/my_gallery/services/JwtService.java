@@ -31,7 +31,7 @@ public class JwtService {
 	                .subject(userId)  // This sets the standard claim "sub"
 	                .claim("email", email) // This adds a custom claim
 	                .issuedAt(Date.from(now))
-	                .expiration(Date.from(now.plusSeconds((10 * 60))) // expires in 10s for test
+	                .expiration(Date.from(now.plusSeconds((10 * 60)))) // expires in 10s for test
 	                /*
 	                 * the compiler finds the right MacAlgorithm,
 	                 * so you don't need the second param: (key, MacAlgoritim)

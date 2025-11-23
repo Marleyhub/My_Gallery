@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import org.springframework.web.cors.CorsConfigurationSource;
 
 
 @Configuration
@@ -34,7 +34,7 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
-            .cors(cors -> {})
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**", "/public/**", "/users/**").permitAll()
                 .anyRequest().authenticated()
@@ -49,6 +49,23 @@ public class SecurityConfig {
 
         return http.build();
     }
+	
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+	    var configuration = new org.springframework.web.cors.CorsConfiguration();
+	    configuration.setAllowedOrigins(
+	        java.util.List.of("https://marleyhub.github.io")
+	    );
+	    configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+	    configuration.setAllowedHeaders(java.util.List.of("Authorization", "Content-Type"));
+	    configuration.setExposedHeaders(java.util.List.of("Authorization"));
+	    configuration.setAllowCredentials(true);
+
+	    var source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", configuration);
+	    return source;
+	}
+
 	
     @Bean
     PasswordEncoder passwordEncoder() {

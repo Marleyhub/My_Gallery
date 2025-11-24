@@ -1,6 +1,5 @@
-import { Component, Output, EventEmitter  } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,43 +7,41 @@ import { AuthService } from '../auth/auth';
 
 @Component({
   selector: 'app-tool-bar',
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule ],
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule],
   templateUrl: './tool-bar.html',
   styleUrl: './tool-bar.scss'
 })
 export class ToolBar {
-  // to refresh page
   @Output() uploaded = new EventEmitter<void>();
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   onFileSelected(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  if (!input.files?.length) {
-    return;
-  }
-  // user id from this call
-  const user = this.authService.getUser();
-  const userId = user?.id;
-  const token = localStorage.getItem('token');
-  const file = input.files[0];
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
 
-  // Form
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('userId', userId);
+    const user = this.authService.getUser();
+    const userId = user?.id;
+    const token = localStorage.getItem('token');
+    const file = input.files[0];
 
-   this.http.post<string[]>('https://my-gallery-fe8414be2560.herokuapp.com/images', {
-      headers: 
-        { Authorization: `Bearer ${token}` }
-    }).subscribe({
-        next: (response) => {
-          console.log("File uploaded successfully:", response);
-          this.uploaded.emit();
-        },
-        error: (err) => {
-          console.error('Upload Faild', err)
-        }
-      });
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.http.post<{ url: string }>(
+      'https://my-gallery-fe8414be2560.herokuapp.com/images',
+      formData,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    ).subscribe({
+      next: (response) => {
+        console.log("File uploaded successfully:", response.url);
+        this.uploaded.emit();
+      },
+      error: (err) => {
+        console.error('Upload Failed:', err);
+      }
+    });
   }
 }

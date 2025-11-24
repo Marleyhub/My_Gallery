@@ -42,10 +42,16 @@ public class S3Controller {
     @PostMapping
 	public ResponseEntity<?> uploadFile(
 			@RequestParam MultipartFile file,
-			@RequestParam String userId
-			) 
-    {
+			@RequestHeader("Authorization") String authHeader
+			) {
+    	String token = authHeader.substring(7);
+    	
+        if (!jwtService.isTokenValid(token)) {
+            return ResponseEntity.status(401).build();
+        }
+        
 		try {
+			String userId = jwtService.extractUserId(token);
 			String url = s3Service.uploadFile(file, userId);
 			return ResponseEntity.ok().body(new UploadResponse(url));
 		} catch (Exception e) {

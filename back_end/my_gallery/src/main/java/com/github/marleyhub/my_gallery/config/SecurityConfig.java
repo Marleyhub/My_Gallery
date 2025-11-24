@@ -37,7 +37,7 @@ public class SecurityConfig {
 	          .csrf(csrf -> csrf.disable())
 	          .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 	          .authorizeHttpRequests(auth -> auth
-	              .requestMatchers("/auth/**", "/public/**").permitAll()  // ONLY public endpoints
+	              .requestMatchers("/auth/**", "/public/**","/users/**").permitAll()  // ONLY public endpoints
 	              .anyRequest().authenticated()                            // everything else requires token
 	          )
 	          .userDetailsService(userDetailsService)

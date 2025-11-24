@@ -37,7 +37,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**", "/public/**", "/users/**, /images/**").permitAll()
+                .requestMatchers("/auth/**", "/public/**", "/users/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
             )
             .userDetailsService(userDetailsService)

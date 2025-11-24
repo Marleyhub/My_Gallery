@@ -26,7 +26,7 @@ export class ToolBar {
   // user id from this call
   const user = this.authService.getUser();
   const userId = user?.id;
-
+  const token = localStorage.getItem('token');
   const file = input.files[0];
 
   // Form
@@ -34,12 +34,12 @@ export class ToolBar {
   formData.append('file', file);
   formData.append('userId', userId);
 
-   this.http.post<{ url: string}>(
-    'https://my-gallery-fe8414be2560.herokuapp.com/images',
-     formData
-    ).subscribe({
+   this.http.post<string[]>('https://my-gallery-fe8414be2560.herokuapp.com/images', {
+      headers: 
+        { Authorization: `Bearer ${token}` }
+    }).subscribe({
         next: (response) => {
-          console.log("File uploaded successfully:", response.url);
+          console.log("File uploaded successfully:", response);
           this.uploaded.emit();
         },
         error: (err) => {

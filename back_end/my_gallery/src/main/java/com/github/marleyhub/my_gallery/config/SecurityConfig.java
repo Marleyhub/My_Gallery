@@ -31,26 +31,27 @@ public class SecurityConfig {
 	        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 	    }
 
-	@Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**", "/public/**", "/users/**", "/images/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .userDetailsService(userDetailsService)
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .formLogin(form -> form.disable())
-            .httpBasic(basic -> basic.disable());
-        
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+	  @Bean
+	  SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	      http
+	          .csrf(csrf -> csrf.disable())
+	          .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+	          .authorizeHttpRequests(auth -> auth
+	              .requestMatchers("/auth/**", "/public/**").permitAll()  // ONLY public endpoints
+	              .anyRequest().authenticated()                            // everything else requires token
+	          )
+	          .userDetailsService(userDetailsService)
+	          .sessionManagement(session -> 
+	              session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	          )
+	          .formLogin(form -> form.disable())
+	          .httpBasic(basic -> basic.disable());
 
+	      http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return http.build();
-    }
-	
+	      return http.build();
+	  }
+
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 	    var configuration = new org.springframework.web.cors.CorsConfiguration();
@@ -58,7 +59,7 @@ public class SecurityConfig {
 	        java.util.List.of("https://marleyhub.github.io")
 	    );
 	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-	    configuration.setAllowedHeaders(List.of("*"));
+	    configuration.setAllowedHeaders(List.of("*", "Authorization", "Content-Type"));
 	    configuration.setExposedHeaders(List.of("*"));
 	    configuration.setAllowCredentials(true);
 

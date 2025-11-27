@@ -14,8 +14,10 @@ Seu objetivo principal é fornecer uma solução segura para:
 ## 2. Componentes da Equipe (Autores) 
 
 | Nome Completo | Função Principal |
+
 | :--- | :--- | :--- |
-| **[Gabriel Marley Cardoso dos Santos]** | Desenvolvedor(a) Back-end |
+
+| **[Gabriel Marley Cardoso dos Santos]** | Desenvolvedor Full stack |
 
 
 ---

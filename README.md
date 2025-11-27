@@ -1,4 +1,4 @@
-# My Gallery API 🖼️
+# My Gallery API 
 
 ## 1. Descrição do Projeto
 
@@ -11,7 +11,7 @@ Seu objetivo principal é fornecer uma solução segura para:
 
 ---
 
-## 2. Componentes da Equipe (Autores) 🧑‍💻
+## 2. Componentes da Equipe (Autores) 
 
 | Nome Completo | Função Principal |
 | :--- | :--- | :--- |

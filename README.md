@@ -36,7 +36,7 @@ O projeto é construído principalmente com a seguinte stack:
 
 A API expõe os seguintes grupos de recursos:
 
-### 📸 Imagens (`/images`) - Requer JWT
+###  Imagens (`/images`) - Requer JWT
 | Método | Endpoint | Descrição | Controller |
 | :--- | :--- | :--- | :--- |
 | `GET` | `/images` | Lista todas as URLs de imagens do usuário autenticado (URLs pré-assinadas). | `S3Controller` |

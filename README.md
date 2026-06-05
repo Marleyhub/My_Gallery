@@ -2,11 +2,11 @@
 
 ## 1. Descrição do Projeto
 
-Este projeto é uma **API RESTful** desenvolvida em Spring Boot para gerenciar uma galeria de imagens pessoal.
+Este projeto é uma **API RESTful** desenvolvida em Spring Boot para gerenciar arquivos pessoais.
 
 Seu objetivo principal é fornecer uma solução segura para:
 * **Gerenciamento de Usuários (CRUD):** Permite criar, listar, atualizar e deletar contas de usuário.
-* **Armazenamento de Imagens Seguro:** Integração com o **Amazon S3** para upload, listagem e exclusão de imagens, isolando o conteúdo por usuário.
+* **Armazenamento de arquivos Seguro:** Integração com o **Amazon S3** para upload, listagem e exclusão de imagens, isolando o conteúdo por usuário.
 * **Autenticação e Autorização:** Utiliza **JSON Web Tokens (JWT)** e **Spring Security** para proteger os endpoints, garantindo que apenas usuários autenticados possam acessar suas próprias imagens.
 
 ---

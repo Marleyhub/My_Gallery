@@ -15,7 +15,7 @@ Seu objetivo principal é fornecer uma solução segura para:
 
 | Nome Completo | Função Principal |
 
-| **[Gabriel Marley Cardoso dos Santos]** | Desenvolvedor Full stack |
+| **[Gabriel Marley Cardoso dos Santos]** | Desenvolvedor Full Cycle |
 
 
 ---

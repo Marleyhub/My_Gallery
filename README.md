@@ -20,7 +20,7 @@ Seu objetivo principal é fornecer uma solução segura para:
 
 ---
 
-## 3. Tecnologias Utilizadas 🛠️
+## 3. Tecnologias Utilizadas 
 
 O projeto é construído principalmente com a seguinte stack:
 
@@ -43,7 +43,7 @@ A API expõe os seguintes grupos de recursos:
 | `POST` | `/images` | Faz o upload de uma nova imagem para a pasta S3 do usuário. | `S3Controller` |
 | `DELETE` | `/images/{key}` | Exclui uma imagem do usuário pelo seu `key` (nome do arquivo). | `S3Controller` |
 
-### 👤 Usuários (`/users`) - CRUD
+###  Usuários (`/users`) - CRUD
 | Método | Endpoint | Descrição | Controller |
 | :--- | :--- | :--- | :--- |
 | `POST` | `/users` | Cria um novo usuário. | `UserController` |
@@ -53,7 +53,7 @@ A API expõe os seguintes grupos de recursos:
 
 ---
 
-## 5. Configuração e Execução ⚙️
+## 5. Configuração e Execução 
 
 ### Configuração de Variáveis de Ambiente
 

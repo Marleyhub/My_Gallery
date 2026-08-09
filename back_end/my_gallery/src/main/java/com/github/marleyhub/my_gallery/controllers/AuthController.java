@@ -1,8 +1,7 @@
-package com.github.marleyhub.my_gallery.auth_controller;
+package com.github.marleyhub.my_gallery.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
